@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,7 @@
 		4C3108F223D5EC1200898BCF /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108F123D5EC1200898BCF /* Entity.swift */; };
 		4C3108F423D6015900898BCF /* ShowsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108F323D6015900898BCF /* ShowsPresenter.swift */; };
 		4C3108F623D6018500898BCF /* ShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108F523D6018500898BCF /* ShowsViewController.swift */; };
+		4C63A7C123D6187D0049B62D /* ShowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C63A7C023D6187D0049B62D /* ShowTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		4C3108F123D5EC1200898BCF /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		4C3108F323D6015900898BCF /* ShowsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowsPresenter.swift; sourceTree = "<group>"; };
 		4C3108F523D6018500898BCF /* ShowsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowsViewController.swift; sourceTree = "<group>"; };
+		4C63A7C023D6187D0049B62D /* ShowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTableViewCell.swift; sourceTree = "<group>"; };
 		5053705C8492436AE0847185 /* Pods-DistilledTVTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DistilledTVTests.debug.xcconfig"; path = "Target Support Files/Pods-DistilledTVTests/Pods-DistilledTVTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5147B3AD4692CB7778FED5CE /* Pods-DistilledTV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DistilledTV.release.xcconfig"; path = "Target Support Files/Pods-DistilledTV/Pods-DistilledTV.release.xcconfig"; sourceTree = "<group>"; };
 		6672D9FAEA46421AC650372C /* Pods-DistilledTV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DistilledTV.debug.xcconfig"; path = "Target Support Files/Pods-DistilledTV/Pods-DistilledTV.debug.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 		4C3108C423D5D39100898BCF /* DistilledTV */ = {
 			isa = PBXGroup;
 			children = (
+				4C63A7C223D61D680049B62D /* Common */,
 				4C3108EE23D5E9CC00898BCF /* TvShowsScene */,
 				4C3108C523D5D39100898BCF /* AppDelegate.swift */,
 				4C3108C723D5D39100898BCF /* SceneDelegate.swift */,
@@ -138,8 +141,16 @@
 				4C3108EF23D5E9E800898BCF /* ShowsInteractor.swift */,
 				4C3108F323D6015900898BCF /* ShowsPresenter.swift */,
 				4C3108F523D6018500898BCF /* ShowsViewController.swift */,
+				4C63A7C023D6187D0049B62D /* ShowTableViewCell.swift */,
 			);
 			path = TvShowsScene;
+			sourceTree = "<group>";
+		};
+		4C63A7C223D61D680049B62D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		96B0F32B2AD03FB6428DFEA0 /* Pods */ = {
@@ -150,7 +161,6 @@
 				5053705C8492436AE0847185 /* Pods-DistilledTVTests.debug.xcconfig */,
 				BA8527397CB062208DF7E633 /* Pods-DistilledTVTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -338,6 +348,7 @@
 				4C3108F023D5E9E800898BCF /* ShowsInteractor.swift in Sources */,
 				4C3108C623D5D39100898BCF /* AppDelegate.swift in Sources */,
 				4C3108C823D5D39100898BCF /* SceneDelegate.swift in Sources */,
+				4C63A7C123D6187D0049B62D /* ShowTableViewCell.swift in Sources */,
 				4C3108F423D6015900898BCF /* ShowsPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

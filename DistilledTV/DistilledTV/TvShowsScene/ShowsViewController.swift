@@ -40,6 +40,9 @@ extension ShowsViewController {
     func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(ShowTableViewCell.self, forCellReuseIdentifier: "ShowTableViewCell")
+        tableView.estimatedRowHeight = 80.0
+        tableView.rowHeight = UITableView.automaticDimension
         view.addSubview(tableView)
     }
     
@@ -73,11 +76,16 @@ extension ShowsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        
+        let cell: ShowTableViewCell = tableView.dequeueReusableCell(withIdentifier: "ShowTableViewCell")! as! ShowTableViewCell
         if let show = shows?[indexPath.row] {
-            cell.textLabel?.text = show.name
+            cell.configure(show)
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }
 
