@@ -81,6 +81,7 @@ class APIClient {
             if let _ = error {
                 completion(.failure(.apiError))
             } else if let data = data, let response = response {
+                
                 guard let statusCode = (response as? HTTPURLResponse)?.statusCode, 200..<299 ~= statusCode else {
                     completion(.failure(.invalidResponse))
                     return

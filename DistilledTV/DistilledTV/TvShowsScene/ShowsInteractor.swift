@@ -8,23 +8,23 @@
 
 import Foundation
 
-typealias LoadTvShowsHandler = (LoadTvShowsResult) -> ()
+typealias LoadShowsHandler = (LoadShowsResult) -> ()
 
-enum LoadTvShowsResult {
-    case successPopularTvShows([TvShow])
+enum LoadShowsResult {
+    case successPopularShows([Show])
     case failed(Error)
 }
 
-protocol TvShowsInteractor {
-    func loadTvShows(page: Int, then handler: @escaping LoadTvShowsHandler)
+protocol ShowsInteractor {
+    func loadShows(page: Int, then handler: @escaping LoadShowsHandler)
 }
 
-class TvShowsDefaultInteractor: TvShowsInteractor {
-    func loadTvShows(page: Int, then handler: @escaping LoadTvShowsHandler) {
+class ShowsDefaultInteractor: ShowsInteractor {
+    func loadShows(page: Int, then handler: @escaping LoadShowsHandler) {
         APIClient.shared.loadPopularTvShows(page: page, { result in
             switch result {
             case .success(let popular):
-                handler(.successPopularTvShows(popular.results))
+                handler(.successPopularShows(popular.results))
             case .failure(let error):
                 handler(.failed(error))
             }

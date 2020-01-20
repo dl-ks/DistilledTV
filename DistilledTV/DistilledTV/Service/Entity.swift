@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TvShow: Codable {
+struct Show: Codable {
     var posterPath: String
     var popularity: Double
     var id: Int
@@ -39,7 +39,7 @@ struct TvShow: Codable {
 struct PopularTvShows: Codable {
     
     let page: Int
-    let results: [TvShow]
+    let results: [Show]
     let totalResults: Int
     let totalPages: Int
     
