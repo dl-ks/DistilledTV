@@ -14,6 +14,8 @@
 		4C3108CF23D5D39200898BCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C3108CE23D5D39200898BCF /* Assets.xcassets */; };
 		4C3108D223D5D39200898BCF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C3108D023D5D39200898BCF /* LaunchScreen.storyboard */; };
 		4C3108DD23D5D39200898BCF /* DistilledTVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108DC23D5D39200898BCF /* DistilledTVTests.swift */; };
+		4C3108E923D5DC1F00898BCF /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108E823D5DC1F00898BCF /* APIRouter.swift */; };
+		4C3108EB23D5DC9D00898BCF /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108EA23D5DC9D00898BCF /* Utility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		4C3108D823D5D39200898BCF /* DistilledTVTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DistilledTVTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3108DC23D5D39200898BCF /* DistilledTVTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistilledTVTests.swift; sourceTree = "<group>"; };
 		4C3108DE23D5D39200898BCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C3108E823D5DC1F00898BCF /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
+		4C3108EA23D5DC9D00898BCF /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,7 @@
 				4C3108CE23D5D39200898BCF /* Assets.xcassets */,
 				4C3108D023D5D39200898BCF /* LaunchScreen.storyboard */,
 				4C3108D323D5D39200898BCF /* Info.plist */,
+				4C3108E723D5DBFB00898BCF /* Service */,
 			);
 			path = DistilledTV;
 			sourceTree = "<group>";
@@ -97,6 +102,15 @@
 				4C3108DE23D5D39200898BCF /* Info.plist */,
 			);
 			path = DistilledTVTests;
+			sourceTree = "<group>";
+		};
+		4C3108E723D5DBFB00898BCF /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				4C3108E823D5DC1F00898BCF /* APIRouter.swift */,
+				4C3108EA23D5DC9D00898BCF /* Utility.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,7 +214,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C3108EB23D5DC9D00898BCF /* Utility.swift in Sources */,
 				4C3108CA23D5D39100898BCF /* ViewController.swift in Sources */,
+				4C3108E923D5DC1F00898BCF /* APIRouter.swift in Sources */,
 				4C3108C623D5D39100898BCF /* AppDelegate.swift in Sources */,
 				4C3108C823D5D39100898BCF /* SceneDelegate.swift in Sources */,
 			);
