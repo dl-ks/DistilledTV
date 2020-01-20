@@ -73,10 +73,12 @@ extension ShowsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = UITableViewCell()
+        if let show = shows?[indexPath.row] {
+            cell.textLabel?.text = show.name
+        }
+        return cell
     }
-    
-    
 }
 
 
