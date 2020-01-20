@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TinyConstraints
 
 protocol ShowsListView: class {
     func startLoading()
@@ -31,6 +32,7 @@ class ShowsViewController: UIViewController {
 
 extension ShowsViewController {
     func setup() {
+        view.backgroundColor = .green
         setupTableView()
         setupConstraints()
     }
@@ -42,7 +44,7 @@ extension ShowsViewController {
     }
     
     func setupConstraints() {
-        
+        tableView.edges(to: view)
     }
 }
 
@@ -66,6 +68,14 @@ extension ShowsViewController: ShowsListView {
 }
 
 extension ShowsViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return shows?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
     
 }
 
