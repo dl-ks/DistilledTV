@@ -9,7 +9,7 @@
 import Foundation
 
 protocol RequestConvertible {
-    func urlRequest() throws -> URLRequest?
+    func urlRequest() throws -> URLRequest
 }
 
 enum HTTPMethod: String {
@@ -39,7 +39,23 @@ enum APIRouter {
 }
 
 extension APIRouter: RequestConvertible {
-    func urlRequest() throws -> URLRequest? {
-        return nil
+    func urlRequest() throws -> URLRequest {
+        
+        switch self {
+        case .popularTvShows:
+            
+            let url = Utility.movieDB.baseUrl.rawValue.appending(path)
+            var urlRequest = URLRequest(url: URL(string: url)!)
+            urlRequest.httpMethod = method.rawValue
+            urlRequest.setValue(Utility.contentType.json.rawValue, forHTTPHeaderField: Utility.httpHeaderField.acceptType.rawValue)
+            urlRequest.setValue(Utility.contentType.json.rawValue, forHTTPHeaderField: Utility.httpHeaderField.contentType.rawValue)
+            
+            return urlRequest
+        }
+        
     }
+}
+
+class APIClient {
+    
 }

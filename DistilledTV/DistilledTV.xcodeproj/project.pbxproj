@@ -16,6 +16,7 @@
 		4C3108DD23D5D39200898BCF /* DistilledTVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108DC23D5D39200898BCF /* DistilledTVTests.swift */; };
 		4C3108E923D5DC1F00898BCF /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108E823D5DC1F00898BCF /* APIRouter.swift */; };
 		4C3108EB23D5DC9D00898BCF /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108EA23D5DC9D00898BCF /* Utility.swift */; };
+		4C3108F023D5E9E800898BCF /* TvShowsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108EF23D5E9E800898BCF /* TvShowsInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		4C3108DE23D5D39200898BCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C3108E823D5DC1F00898BCF /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		4C3108EA23D5DC9D00898BCF /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		4C3108EF23D5E9E800898BCF /* TvShowsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvShowsInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 		4C3108C423D5D39100898BCF /* DistilledTV */ = {
 			isa = PBXGroup;
 			children = (
+				4C3108EE23D5E9CC00898BCF /* TvShowsScene */,
 				4C3108C523D5D39100898BCF /* AppDelegate.swift */,
 				4C3108C723D5D39100898BCF /* SceneDelegate.swift */,
 				4C3108C923D5D39100898BCF /* ViewController.swift */,
@@ -111,6 +114,14 @@
 				4C3108EA23D5DC9D00898BCF /* Utility.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		4C3108EE23D5E9CC00898BCF /* TvShowsScene */ = {
+			isa = PBXGroup;
+			children = (
+				4C3108EF23D5E9E800898BCF /* TvShowsInteractor.swift */,
+			);
+			path = TvShowsScene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +228,7 @@
 				4C3108EB23D5DC9D00898BCF /* Utility.swift in Sources */,
 				4C3108CA23D5D39100898BCF /* ViewController.swift in Sources */,
 				4C3108E923D5DC1F00898BCF /* APIRouter.swift in Sources */,
+				4C3108F023D5E9E800898BCF /* TvShowsInteractor.swift in Sources */,
 				4C3108C623D5D39100898BCF /* AppDelegate.swift in Sources */,
 				4C3108C823D5D39100898BCF /* SceneDelegate.swift in Sources */,
 			);
