@@ -15,6 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        APIClient.shared.loadPopularTvShows(page: 1, { result in
+            switch result {
+            case .success(let show):
+                print(show.results)
+            case .failure(let error):
+                print(error)
+            }
+        })
+        
         return true
     }
 

@@ -19,6 +19,14 @@ enum HTTPMethod: String {
     case delete = "DELETE"
 }
 
+enum APIError: Error {
+    case apiError
+    case invalidEndpoint
+    case invalidResponse
+    case noData
+    case decodeError
+}
+
 enum APIRouter {
     
     case popularTvShows(apiKey: String, page: Int)
@@ -52,10 +60,52 @@ extension APIRouter: RequestConvertible {
             
             return urlRequest
         }
-        
     }
 }
 
 class APIClient {
     
+    let session = URLSession.shared
+    public static let shared = APIClient()
+    private init() {}
+    
+    private func load<T: Decodable>(request: URLRequest, completion: @escaping (Result<T, APIError>) -> Void) {
+        
+        guard let url = request.url, var _ = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            completion(.failure(.invalidEndpoint))
+            return
+        }
+    
+        session.dataTask(with: request) { (data, response, error)  in
+            
+            if let _ = error {
+                completion(.failure(.apiError))
+            } else if let data = data, let response = response {
+                guard let statusCode = (response as? HTTPURLResponse)?.statusCode, 200..<299 ~= statusCode else {
+                    completion(.failure(.invalidResponse))
+                    return
+                }
+                
+                do {
+                    let values = try JSONDecoder().decode(T.self, from: data)
+                    completion(.success(values))
+                } catch let e {
+                    print(e)
+                    completion(.failure(.decodeError))
+                }
+                
+            }
+        }.resume()
+    }
+}
+
+extension APIClient {
+    func loadPopularTvShows(page: Int, _ result: @escaping (Result<PopularTvShows, APIError>) -> Void) {
+        do {
+            let request = try APIRouter.popularTvShows(apiKey: Utility.movieDB.apiKeyV3.rawValue, page: page).urlRequest()
+            load(request: request, completion: result)
+        } catch {
+            print("Failed to create URLRequest")
+        }
+    }
 }
