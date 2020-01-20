@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol RequestConvertible {
+    func urlRequest() throws -> URLRequest?
+}
+
 enum HTTPMethod: String {
     case get = "GET"
     case put = "PUT"
@@ -29,8 +33,13 @@ enum APIRouter {
     private var path: String {
         switch self {
         case .popularTvShows(let apiKey, let page):
-            return ""
+            return "/tv/popular?api_key=\(apiKey)&page=\(page)"
         }
     }
-    
+}
+
+extension APIRouter: RequestConvertible {
+    func urlRequest() throws -> URLRequest? {
+        return nil
+    }
 }
