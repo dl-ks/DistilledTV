@@ -8,32 +8,7 @@
 
 import UIKit
 
-class ShowTableViewCell: UITableViewCell {
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
-    private func setup() {
-        selectionStyle = .none
-        contentView.addSubview(posterImageView)
-        contentView.addSubview(nameLabel)
-        contentView.addSubview(overviewLabel)
-        setupConstraints()
-    }
+class PopularShowsTableViewCell: UITableViewCell {
     
     private var nameLabel: UILabel = {
         let lbl = UILabel()
@@ -55,6 +30,23 @@ class ShowTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setup() {
+        selectionStyle = .none
+        contentView.addSubview(posterImageView)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(overviewLabel)
+        setupConstraints()
+    }
+
     private func setupConstraints() {
         posterImageView.leading(to: contentView, offset: 16.0)
         posterImageView.top(to: contentView, offset: 10.0)

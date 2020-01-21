@@ -8,9 +8,9 @@
 
 import Foundation
 
-typealias LoadShowsHandler = (LoadShowsResult) -> ()
+typealias LoadPopularShowsHandler = (LoadPopularShowsResult) -> ()
 
-enum LoadShowsResult {
+enum LoadPopularShowsResult {
     case startActivity
     case stopActivity
     case successPopularShows(PopularShows)
@@ -18,20 +18,25 @@ enum LoadShowsResult {
     case failed(Error)
 }
 
-protocol ShowsInteractor {
-    func loadShows(page: Int, then handler: @escaping LoadShowsHandler)
-    func loadPoster(for show: Show, then handler: @escaping LoadShowsHandler) -> ShowPoster?
+protocol PopularShowsInteractor {
+    func loadShows(page: Int, then handler: @escaping LoadPopularShowsHandler)
+    func loadPoster(for show: Show, then handler: @escaping LoadPopularShowsHandler) -> ShowPoster?
 }
 
-class ShowsDefaultInteractor: ShowsInteractor {
+class PopularShowsDefaultInteractor: PopularShowsInteractor {
     
     var imageCache = [String: Data]()
+    var apiClient: APIClient
     
-    public func loadShows(page: Int, then handler: @escaping LoadShowsHandler) {
+    init(apiClient: APIClient) {
+        self.apiClient = apiClient
+    }
+    
+    public func loadShows(page: Int, then handler: @escaping LoadPopularShowsHandler) {
         
         handler(.startActivity)
         
-        APIClient.shared.loadPopularShows(page: page, { result in
+        apiClient.loadPopularShows(page: page, { result in
             handler(.stopActivity)
             switch result {
             case .success(let popular):
@@ -42,12 +47,12 @@ class ShowsDefaultInteractor: ShowsInteractor {
         })
     }
     
-    public func loadPoster(for show: Show, then handler: @escaping LoadShowsHandler) -> ShowPoster? {
+    public func loadPoster(for show: Show, then handler: @escaping LoadPopularShowsHandler) -> ShowPoster? {
         
         if let image = imageCache[show.posterPath] {
             return ShowPoster(show: show, image: image)
         } else {
-            APIClient.shared.loadPoster(for: show, { [weak self] result in
+            apiClient.loadPoster(for: show, { [weak self] result in
                 switch result {
                 case .success(let poster):
                     self?.cache(poster, for: show.posterPath)

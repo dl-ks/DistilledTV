@@ -19,13 +19,13 @@ extension Loadable where Self: UIViewController {
     func showActivity() {
         DispatchQueue.main.async {
             self.activityIndicator.color = .black
-            self.activityIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 80.0, height: 80.0)
-            self.activityIndicator.center = CGPoint(x:self.view.bounds.size.width / 2, y:self.view.bounds.size.height / 2)
+            self.activityIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 120.0, height: 120.0)
+            self.activityIndicator.center = CGPoint(x: self.view.bounds.size.width / 2, y: self.view.bounds.size.height / 2)
             self.view.addSubview(self.activityIndicator)
             self.activityIndicator.startAnimating()
+        }
     }
-}
-
+    
     func hideActivity() {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()

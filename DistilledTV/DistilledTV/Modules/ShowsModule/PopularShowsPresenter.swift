@@ -9,24 +9,31 @@
 import Foundation
 import UIKit
 
-protocol ShowsPresenter {
+protocol PopularShowsPresenter {
     func loadData()
     func loadNextPage()
     func loadImage(for show: Show) -> UIImage?
+    func showActivity()
+    func hideActivity()
 }
 
-class ShowsDefaultPresenter: ShowsPresenter {
+class PopularShowsDefaultPresenter {
     
     private var shows: [Show]?
-    private weak var view: ShowsListView?
-    private let interactor: ShowsInteractor = ShowsDefaultInteractor()
+    private weak var view: PopularShowsView?
+    private let interactor: PopularShowsInteractor
+    private let router: PopularShowsRouter
     private var lastPage = 0
     private var totalPages = Int.max
 
-    init(view: ShowsListView) {
+    init(view: PopularShowsView, interactor: PopularShowsInteractor, router: PopularShowsRouter) {
         self.view = view
+        self.interactor = interactor
+        self.router = router
     }
-    
+}
+
+extension PopularShowsDefaultPresenter: PopularShowsPresenter {
     func loadData() {
         lastPage = 0
         loadNextPage()
@@ -48,11 +55,19 @@ class ShowsDefaultPresenter: ShowsPresenter {
         }
         interactor.loadShows(page: nextPage, then: interactorHandler())
     }
+    
+    func showActivity() {
+        router.showActivity()
+    }
+    
+    func hideActivity() {
+        router.hideActivity()
+    }
 }
 
-extension ShowsDefaultPresenter {
+extension PopularShowsDefaultPresenter {
     
-    private func interactorHandler() -> LoadShowsHandler {
+    private func interactorHandler() -> LoadPopularShowsHandler {
         return { [weak self] result in
             guard let strongSelf = self else { return }
             
@@ -65,20 +80,12 @@ extension ShowsDefaultPresenter {
                 case .failed(let error):
                     strongSelf.handle(error)
                 case .startActivity:
-                    strongSelf.startActivity()
+                    strongSelf.showActivity()
                 case .stopActivity:
-                    strongSelf.stopActivity()
+                    strongSelf.hideActivity()
                 }
             }
         }
-    }
-    
-    private func startActivity() {
-        view?.startLoading()
-    }
-    
-    private func stopActivity() {
-        view?.startLoading()
     }
     
     private func handle(_ newShows: PopularShows?) {
@@ -102,6 +109,6 @@ extension ShowsDefaultPresenter {
     }
     
     private func handle(_ error: Error) {
-        print(error)
+        view?.display(error)
     }
 }
