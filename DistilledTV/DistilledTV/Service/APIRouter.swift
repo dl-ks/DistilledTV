@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol RequestConvertible {
     func urlRequest() throws -> URLRequest
@@ -30,10 +31,12 @@ enum APIError: Error {
 enum APIRouter {
     
     case popularTvShows(apiKey: String, page: Int)
+    case poster(apiKey: String, fileName: String)
     
     private var method: HTTPMethod {
         switch self {
-        case .popularTvShows:
+        case .popularTvShows,
+             .poster:
             return .get
         }
     }
@@ -42,6 +45,8 @@ enum APIRouter {
         switch self {
         case .popularTvShows(let apiKey, let page):
             return "/tv/popular?api_key=\(apiKey)&page=\(page)"
+        case .poster(let apiKey, let fileName):
+            return "\(fileName)?api_key=\(apiKey)"
         }
     }
 }
@@ -51,13 +56,19 @@ extension APIRouter: RequestConvertible {
         
         switch self {
         case .popularTvShows:
-            
             let url = Utility.movieDB.baseUrl.rawValue.appending(path)
             var urlRequest = URLRequest(url: URL(string: url)!)
             urlRequest.httpMethod = method.rawValue
             urlRequest.setValue(Utility.contentType.json.rawValue, forHTTPHeaderField: Utility.httpHeaderField.acceptType.rawValue)
             urlRequest.setValue(Utility.contentType.json.rawValue, forHTTPHeaderField: Utility.httpHeaderField.contentType.rawValue)
+            return urlRequest
             
+        case .poster:
+            let url = Utility.movieDB.imageUrl.rawValue.appending(path)
+            var urlRequest = URLRequest(url: URL(string: url)!)
+            urlRequest.httpMethod = method.rawValue
+            urlRequest.setValue(Utility.contentType.image.rawValue, forHTTPHeaderField: Utility.httpHeaderField.acceptType.rawValue)
+            urlRequest.setValue(Utility.contentType.json.rawValue, forHTTPHeaderField: Utility.httpHeaderField.contentType.rawValue)
             return urlRequest
         }
     }
@@ -98,15 +109,46 @@ class APIClient {
             }
         }.resume()
     }
+    
+    private func loadImage(request: URLRequest, completion: @escaping (Result<Data, APIError>) -> Void) {
+        guard let url = request.url, var _ = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+                completion(.failure(.invalidEndpoint))
+                return
+            }
+        
+            session.dataTask(with: request) { (data, response, error)  in
+                
+                if let _ = error {
+                    completion(.failure(.apiError))
+                } else if let data = data, let response = response {
+                    
+                    guard let statusCode = (response as? HTTPURLResponse)?.statusCode, 200..<299 ~= statusCode else {
+                        completion(.failure(.invalidResponse))
+                        return
+                    }
+                    
+                    completion(.success(data))
+                }
+            }.resume()
+    }
 }
 
 extension APIClient {
-    func loadPopularTvShows(page: Int, _ result: @escaping (Result<PopularTvShows, APIError>) -> Void) {
+    func loadPopularShows(page: Int, _ result: @escaping (Result<PopularShows, APIError>) -> Void) {
         do {
             let request = try APIRouter.popularTvShows(apiKey: Utility.movieDB.apiKeyV3.rawValue, page: page).urlRequest()
             load(request: request, completion: result)
         } catch {
             print("Failed to create URLRequest")
+        }
+    }
+    
+    func loadPoster(for show: Show, _ result: @escaping (Result<Data, APIError>) -> Void) {
+        do {
+            let request = try APIRouter.poster(apiKey: Utility.movieDB.apiKeyV3.rawValue, fileName: show.posterPath).urlRequest()
+            loadImage(request: request, completion: result)
+        } catch {
+            print("Failed to create Image request")
         }
     }
 }

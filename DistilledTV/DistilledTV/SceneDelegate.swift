@@ -21,7 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         let vc = ShowsViewController()
-//        vc.view.backgroundColor = .red
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
         

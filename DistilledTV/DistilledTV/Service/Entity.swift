@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Show: Codable {
     var posterPath: String
@@ -36,7 +37,7 @@ struct Show: Codable {
     }
 }
 
-struct PopularTvShows: Codable {
+struct PopularShows: Codable {
     
     let page: Int
     let results: [Show]
@@ -55,4 +56,9 @@ public struct ErrorResponse: Codable {
     let status_code: Int
     let status_message: String
     let success: Bool
+}
+
+public struct ShowPoster: Codable {
+    let show: Show
+    let image: Data
 }

@@ -10,16 +10,9 @@ import UIKit
 
 class ShowTableViewCell: UITableViewCell {
     
-//    private let titleLabel = UILabel()
-//    private let overviewLabel = UILabel()
-//    private let posterImageView = UIImageView()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(posterImageView)
-        contentView.addSubview(nameLabel)
-        contentView.addSubview(overviewLabel)
-        setupConstraints()
+        setup()
     }
     
     required init?(coder: NSCoder) {
@@ -28,16 +21,24 @@ class ShowTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
+    private func setup() {
+        selectionStyle = .none
+        contentView.addSubview(posterImageView)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(overviewLabel)
+        setupConstraints()
+    }
+    
     private var nameLabel: UILabel = {
         let lbl = UILabel()
         lbl.numberOfLines = 0
+        lbl.font = lbl.font.withSize(24.0)
         return lbl
     }()
     
@@ -48,35 +49,32 @@ class ShowTableViewCell: UITableViewCell {
         return lbl
     }()
     
-    private var posterImageView: UIImageView = {
+    public var posterImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    func setupConstraints() {
+    private func setupConstraints() {
         posterImageView.leading(to: contentView, offset: 16.0)
-        posterImageView.centerY(to: contentView)
-        posterImageView.height(60.0)
-        posterImageView.width(60.0)
+        posterImageView.top(to: contentView, offset: 10.0)
+        posterImageView.height(80.0)
+        posterImageView.width(80.0)
         
-        nameLabel.leadingToTrailing(of: posterImageView, offset: 16.0)
+        nameLabel.leadingToTrailing(of: posterImageView, offset: 10.0)
         nameLabel.trailing(to: contentView, offset: 10.0)
-        nameLabel.top(to: contentView, offset: 10.0)
+        nameLabel.centerY(to: posterImageView)
         
-        overviewLabel.leftToRight(of: posterImageView, offset: 16.0)
-        overviewLabel.topToBottom(of: nameLabel, offset: 10.0)
-        overviewLabel.right(to: contentView)
+        overviewLabel.leading(to: contentView, offset: 16.0)
+        overviewLabel.topToBottom(of: posterImageView, offset: 10.0)
+        overviewLabel.trailing(to: contentView, offset: -16.0)
         overviewLabel.bottom(to: contentView, offset: -10.0)
     }
     
-}
-
-extension ShowTableViewCell {
-    
-    func configure(_ show: Show) {
+    public func configure(_ show: Show) {
         nameLabel.text = show.name
-        nameLabel.sizeToFit()
         overviewLabel.text = show.overview
     }
-    
 }
+
+
