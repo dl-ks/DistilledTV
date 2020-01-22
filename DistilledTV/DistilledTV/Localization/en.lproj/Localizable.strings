@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  DistilledTV
+
+  Created by Barry on 22/01/2020.
+  Copyright © 2020 dl-ks. All rights reserved.
+*/
+
+"default_error_message" = "Something went wrong";
+"get_popular_shows" = "Get TV Shows!";

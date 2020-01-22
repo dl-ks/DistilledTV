@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol RequestConvertible {
-    func urlRequest() throws -> URLRequest
+    func urlRequest() -> URLRequest
 }
 
 enum HTTPMethod: String {
@@ -52,7 +52,7 @@ enum APIRouter {
 }
 
 extension APIRouter: RequestConvertible {
-    func urlRequest() throws -> URLRequest {
+    func urlRequest() -> URLRequest {
         
         switch self {
         case .popularTvShows:
@@ -86,7 +86,7 @@ class APIClient {
             completion(.failure(.invalidEndpoint))
             return
         }
-    
+        
         session.dataTask(with: request) { (data, response, error)  in
             
             if let _ = error {
@@ -112,43 +112,40 @@ class APIClient {
     
     private func loadImage(request: URLRequest, completion: @escaping (Result<Data, APIError>) -> Void) {
         guard let url = request.url, var _ = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-                completion(.failure(.invalidEndpoint))
-                return
-            }
+            completion(.failure(.invalidEndpoint))
+            return
+        }
         
-            session.dataTask(with: request) { (data, response, error)  in
+        session.dataTask(with: request) { (data, response, error)  in
+            
+            if let _ = error {
+                completion(.failure(.apiError))
+            } else if let data = data, let response = response {
                 
-                if let _ = error {
-                    completion(.failure(.apiError))
-                } else if let data = data, let response = response {
-                    
-                    guard let statusCode = (response as? HTTPURLResponse)?.statusCode, 200..<299 ~= statusCode else {
-                        completion(.failure(.invalidResponse))
-                        return
-                    }
-                    
-                    completion(.success(data))
+                guard let statusCode = (response as? HTTPURLResponse)?.statusCode, 200..<299 ~= statusCode else {
+                    completion(.failure(.invalidResponse))
+                    return
                 }
-            }.resume()
+                
+                completion(.success(data))
+            }
+        }.resume()
     }
 }
 
-extension APIClient {
+protocol PopularShowsLoadable {
+    func loadPopularShows(page: Int, _ result: @escaping (Result<PopularShows, APIError>) -> Void)
+    func loadPoster(for show: Show, _ result: @escaping (Result<Data, APIError>) -> Void)
+}
+
+extension APIClient: PopularShowsLoadable {
     func loadPopularShows(page: Int, _ result: @escaping (Result<PopularShows, APIError>) -> Void) {
-        do {
-            let request = try APIRouter.popularTvShows(apiKey: Utility.movieDB.apiKeyV3.rawValue, page: page).urlRequest()
-            load(request: request, completion: result)
-        } catch {
-            print("Failed to create URLRequest")
-        }
+        let request = APIRouter.popularTvShows(apiKey: Utility.movieDB.apiKeyV3.rawValue, page: page).urlRequest()
+        load(request: request, completion: result)
     }
     
     func loadPoster(for show: Show, _ result: @escaping (Result<Data, APIError>) -> Void) {
-        do {
-            let request = try APIRouter.poster(apiKey: Utility.movieDB.apiKeyV3.rawValue, fileName: show.posterPath).urlRequest()
-            loadImage(request: request, completion: result)
-        } catch {
-            print("Failed to create Image request")
-        }
+        let request = APIRouter.poster(apiKey: Utility.movieDB.apiKeyV3.rawValue, fileName: show.posterPath).urlRequest()
+        loadImage(request: request, completion: result)
     }
 }

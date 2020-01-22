@@ -11,7 +11,7 @@ import TinyConstraints
 
 protocol PopularShowsView: class {
     func display(_ shows: [Show]?)
-    func display(_ error: Error)
+    func display(_ error: String)
     func display(_ image: UIImage, for show: Show)
 }
 
@@ -61,8 +61,9 @@ extension PopularShowsViewController: PopularShowsView {
         cell.posterImageView.image = image
     }
     
-    func display(_ error: Error) {
-        
+    func display(_ error: String) {
+        let alertController = UIAlertController(title: "", message: error, preferredStyle: .alert)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

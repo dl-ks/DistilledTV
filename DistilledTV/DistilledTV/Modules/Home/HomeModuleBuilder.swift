@@ -16,6 +16,8 @@ class HomeModuleBuilder {
         let router = HomeDefaultRouter(view: view)
         let presenter = HomeDefaultPresenter(view: view, router: router)
         view.presenter = presenter
-        return view
+        
+        let navigationController = NavigationBuilder.build(root: view)
+        return navigationController
     }
 }

@@ -8,29 +8,28 @@
 
 import Foundation
 
-typealias LoadPopularShowsHandler = (LoadPopularShowsResult) -> ()
-
-enum LoadPopularShowsResult {
-    case startActivity
-    case stopActivity
-    case successPopularShows(PopularShows)
-    case successPoster(ShowPoster)
-    case failed(Error)
-}
-
 protocol PopularShowsInteractor {
     func loadShows(page: Int, then handler: @escaping LoadPopularShowsHandler)
     func loadPoster(for show: Show, then handler: @escaping LoadPopularShowsHandler) -> ShowPoster?
+    func sortShows(_ shows: [Show]) -> [Show]
 }
 
-class PopularShowsDefaultInteractor: PopularShowsInteractor {
+class PopularShowsDefaultInteractor {
     
     var imageCache = [String: Data]()
-    var apiClient: APIClient
+    var apiClient: PopularShowsLoadable
     
-    init(apiClient: APIClient) {
+    init(apiClient: PopularShowsLoadable) {
         self.apiClient = apiClient
     }
+    
+    private func cache(_ image: Data?, for path: String) {
+        guard let image = image else { return }
+        imageCache[path] = image
+    }
+}
+
+extension PopularShowsDefaultInteractor: PopularShowsInteractor {
     
     public func loadShows(page: Int, then handler: @escaping LoadPopularShowsHandler) {
         
@@ -66,8 +65,7 @@ class PopularShowsDefaultInteractor: PopularShowsInteractor {
         }
     }
     
-    private func cache(_ image: Data?, for path: String) {
-        guard let image = image else { return }
-        imageCache[path] = image
+    func sortShows(_ shows: [Show]) -> [Show] {
+        return [Show]()
     }
 }

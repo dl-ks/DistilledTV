@@ -108,7 +108,10 @@ extension PopularShowsDefaultPresenter {
         }
     }
     
-    private func handle(_ error: Error) {
-        view?.display(error)
+    private func handle(_ error: APIError) {
+        switch error {
+        case .apiError, .decodeError, .invalidEndpoint, .invalidResponse, .noData:
+            view?.display("default_error_message".localized)
+        }
     }
 }

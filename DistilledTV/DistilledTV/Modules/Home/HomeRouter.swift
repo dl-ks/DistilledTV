@@ -24,6 +24,6 @@ class HomeDefaultRouter {
 
 extension HomeDefaultRouter: HomeRouter {
     func presentPopularShowsViewController() {
-        view.navigationController?.present(PopularShowsModuleBuilder.build(), animated: true, completion: nil)
+        view.navigationController?.pushViewController(PopularShowsModuleBuilder.build(), animated: true)
     }
 }
