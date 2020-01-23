@@ -13,14 +13,14 @@ class PopularShowsTableViewCell: UITableViewCell {
     private var nameLabel: UILabel = {
         let lbl = UILabel()
         lbl.numberOfLines = 0
-        lbl.font = lbl.font.withSize(24.0)
+        lbl.font = UIFont(name: "Avenir", size: 24.0)
         return lbl
     }()
     
     private var overviewLabel: UILabel = {
         let lbl = UILabel()
         lbl.numberOfLines = 0
-        lbl.font = lbl.font.withSize(12.0)
+        lbl.font = UIFont(name: "Avenir", size: 16.0)
         return lbl
     }()
     
@@ -68,5 +68,6 @@ class PopularShowsTableViewCell: UITableViewCell {
         overviewLabel.text = show.overview
     }
 }
+
 
 

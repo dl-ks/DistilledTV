@@ -18,8 +18,10 @@ class HomeViewController: UIViewController {
     
     private var getShowsButton: UIButton = {
         let btn = UIButton(type: .custom)
-        btn.backgroundColor = .cyan
-        btn.layer.cornerRadius = 4.0
+        btn.backgroundColor = UIColor(named: "customGreen")
+        btn.setTitleColor(UIColor(named: "customGrey"), for: .normal)
+        btn.titleLabel?.font = UIFont(name: "Avenir", size: 36.0)
+        btn.layer.cornerRadius = 8.0
         btn.setTitle("get_popular_shows".localized, for: .normal)
         return btn
     }()
@@ -30,9 +32,16 @@ class HomeViewController: UIViewController {
         setupConstraints()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
     private func setup() {
-        getShowsButton.addTarget(self, action: #selector(presentPopularShowsViewController), for: .touchUpInside)
-        view.backgroundColor = .gray
+        getShowsButton.addTarget(self,
+                                 action: #selector(presentPopularShowsViewController),
+                                 for: .touchUpInside)
+        view.backgroundColor = UIColor(named: "customBlue")
         view.addSubview(getShowsButton)
     }
     

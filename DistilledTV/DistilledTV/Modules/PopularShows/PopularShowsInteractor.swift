@@ -45,13 +45,13 @@ extension PopularShowsDefaultInteractor: PopularShowsInteractor {
     }
     
     public func loadPoster(for show: PopularShow, then handler: @escaping LoadPopularShowsHandler) -> PopularShowPoster? {
-        if let image = imageCache[show.posterPath] {
+        if let posterPath = show.posterPath, let image = imageCache[posterPath] {
             return PopularShowPoster(show: show, image: image)
         } else {
             apiClient.loadPoster(for: show, { [weak self] result in
                 switch result {
                 case .success(let poster):
-                    self?.cache(poster, for: show.posterPath)
+                    self?.cache(poster, for: show.posterPath ?? "")
                     handler(.successPoster(PopularShowPoster(show: show, image: poster)))
                 case .failure(let error):
                     handler(.failed(error))

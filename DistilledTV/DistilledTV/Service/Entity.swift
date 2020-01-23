@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 struct PopularShow: Codable {
-    var posterPath: String
+    var posterPath: String?
     var popularity: Double
     var id: Int
     var overview: String
@@ -19,7 +19,7 @@ struct PopularShow: Codable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        posterPath = try container.decode(String.self, forKey: .posterPath)
+        posterPath = try? container.decodeIfPresent(String.self, forKey: .posterPath) ?? ""
         popularity = try container.decode(Double.self, forKey: .popularity)
         id = try container.decode(Int.self, forKey: .id)
         overview = try container.decode(String.self, forKey: .overview)

@@ -23,6 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let vc = HomeModuleBuilder.build()
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
+        
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.blue , NSAttributedString.Key.font: UIFont(name: "Avenir", size: 17)!]
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

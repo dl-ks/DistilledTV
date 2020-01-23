@@ -145,7 +145,7 @@ extension APIClient: PopularShowsLoadable {
     }
     
     func loadPoster(for show: PopularShow, _ result: @escaping (Result<Data, APIError>) -> Void) {
-        let request = APIRouter.poster(apiKey: Utility.movieDB.apiKeyV3.rawValue, fileName: show.posterPath).urlRequest()
+        let request = APIRouter.poster(apiKey: Utility.movieDB.apiKeyV3.rawValue, fileName: show.posterPath ?? "").urlRequest()
         loadImage(request: request, completion: result)
     }
 }

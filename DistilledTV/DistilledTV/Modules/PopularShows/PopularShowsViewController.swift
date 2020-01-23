@@ -26,7 +26,7 @@ class PopularShowsViewController: UIViewController, Loadable {
     
     private var tableView: UITableView = {
         let tbl = UITableView()
-        tbl.register(PopularShowsTableViewCell.self, forCellReuseIdentifier: "ShowTableViewCell")
+        tbl.register(PopularShowsTableViewCell.self, forCellReuseIdentifier: "PopularShowsTableViewCell")
         tbl.estimatedRowHeight = 80.0
         tbl.rowHeight = UITableView.automaticDimension
         return tbl
@@ -43,7 +43,15 @@ class PopularShowsViewController: UIViewController, Loadable {
         tableView.dataSource = self
         view.addSubview(tableView)
         tableView.edges(to: view)
+        
+        navigationItem.title = "popular_shows".localized
+        navigationController?.isNavigationBarHidden = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "sort_shows".localized,
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(sort))
     }
+    
 }
 
 extension PopularShowsViewController: PopularShowsView {
@@ -62,12 +70,12 @@ extension PopularShowsViewController: PopularShowsView {
     }
     
     func display(_ error: String) {
-        let alertController = UIAlertController(title: "", message: error, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        let alertController = UIAlertController(title: "uh_oh".localized, message: error, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "ok".localized, style: .default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func sort() {
+    @objc func sort() {
         display(presenter?.sort(shows))
     }
 }
@@ -78,7 +86,7 @@ extension PopularShowsViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "ShowTableViewCell") as? PopularShowsTableViewCell,
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "PopularShowsTableViewCell") as? PopularShowsTableViewCell,
             let show = shows?[indexPath.row] {
             cell.configure(show)
             cell.posterImageView.image = presenter?.loadImage(for: show)

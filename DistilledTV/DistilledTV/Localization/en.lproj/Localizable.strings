@@ -8,3 +8,7 @@
 
 "default_error_message" = "Something went wrong";
 "get_popular_shows" = "Get TV Shows!";
+"sort_shows" = "Sort shows";
+"popular_shows" = "Popular shows";
+"uh_oh" = "Uh oh...";
+"ok" = "Ok";
