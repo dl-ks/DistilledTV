@@ -30,6 +30,7 @@
 		4C60995E23D83A17006D67A2 /* PopularShowsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C60995D23D83A17006D67A2 /* PopularShowsHandler.swift */; };
 		4C60996323D8E8D7006D67A2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C60996223D8E8D7006D67A2 /* String.swift */; };
 		4C60996423D8EA1C006D67A2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C60996623D8EA1C006D67A2 /* Localizable.strings */; };
+		4C60996823D8EE97006D67A2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C60996723D8EE97006D67A2 /* Color.swift */; };
 		4C63A7C123D6187D0049B62D /* PopularShowsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C63A7C023D6187D0049B62D /* PopularShowsTableViewCell.swift */; };
 		4CCE4EB223D65C86009B3AD0 /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCE4EB123D65C86009B3AD0 /* Loadable.swift */; };
 /* End PBXBuildFile section */
@@ -71,6 +72,7 @@
 		4C60995D23D83A17006D67A2 /* PopularShowsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularShowsHandler.swift; sourceTree = "<group>"; };
 		4C60996223D8E8D7006D67A2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		4C60996523D8EA1C006D67A2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4C60996723D8EE97006D67A2 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4C63A7C023D6187D0049B62D /* PopularShowsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularShowsTableViewCell.swift; sourceTree = "<group>"; };
 		4CCE4EB123D65C86009B3AD0 /* Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
 		5053705C8492436AE0847185 /* Pods-DistilledTVTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DistilledTVTests.debug.xcconfig"; path = "Target Support Files/Pods-DistilledTVTests/Pods-DistilledTVTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -103,10 +105,10 @@
 		4C046F2C23D6D85D00B5FF57 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				4C60996923D8F2FA006D67A2 /* Builder */,
 				4C046F2D23D6D87600B5FF57 /* HomeRouter.swift */,
 				4C046F2F23D6D88D00B5FF57 /* HomeViewController.swift */,
 				4C046F3823D79CFC00B5FF57 /* HomePresenter.swift */,
-				4C046F3A23D79D5700B5FF57 /* HomeModuleBuilder.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				4C60996223D8E8D7006D67A2 /* String.swift */,
+				4C60996723D8EE97006D67A2 /* Color.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -244,6 +247,14 @@
 				4C60996623D8EA1C006D67A2 /* Localizable.strings */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		4C60996923D8F2FA006D67A2 /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				4C046F3A23D79D5700B5FF57 /* HomeModuleBuilder.swift */,
+			);
+			path = Builder;
 			sourceTree = "<group>";
 		};
 		4C63A7C223D61D680049B62D /* Common */ = {
@@ -464,6 +475,7 @@
 				4C3108F623D6018500898BCF /* PopularShowsViewController.swift in Sources */,
 				4C046F3523D79AFC00B5FF57 /* PopularShowsRouter.swift in Sources */,
 				4C3108F023D5E9E800898BCF /* PopularShowsInteractor.swift in Sources */,
+				4C60996823D8EE97006D67A2 /* Color.swift in Sources */,
 				4C3108C623D5D39100898BCF /* AppDelegate.swift in Sources */,
 				4C3108C823D5D39100898BCF /* SceneDelegate.swift in Sources */,
 				4C63A7C123D6187D0049B62D /* PopularShowsTableViewCell.swift in Sources */,

@@ -10,8 +10,8 @@ import Foundation
 
 protocol PopularShowsInteractor {
     func loadShows(page: Int, then handler: @escaping LoadPopularShowsHandler)
-    func loadPoster(for show: Show, then handler: @escaping LoadPopularShowsHandler) -> ShowPoster?
-    func sortShows(_ shows: [Show]) -> [Show]
+    func loadPoster(for show: PopularShow, then handler: @escaping LoadPopularShowsHandler) -> PopularShowPoster?
+    func sort(shows: [PopularShow]) -> [PopularShow]
 }
 
 class PopularShowsDefaultInteractor {
@@ -32,9 +32,7 @@ class PopularShowsDefaultInteractor {
 extension PopularShowsDefaultInteractor: PopularShowsInteractor {
     
     public func loadShows(page: Int, then handler: @escaping LoadPopularShowsHandler) {
-        
         handler(.startActivity)
-        
         apiClient.loadPopularShows(page: page, { result in
             handler(.stopActivity)
             switch result {
@@ -46,26 +44,24 @@ extension PopularShowsDefaultInteractor: PopularShowsInteractor {
         })
     }
     
-    public func loadPoster(for show: Show, then handler: @escaping LoadPopularShowsHandler) -> ShowPoster? {
-        
+    public func loadPoster(for show: PopularShow, then handler: @escaping LoadPopularShowsHandler) -> PopularShowPoster? {
         if let image = imageCache[show.posterPath] {
-            return ShowPoster(show: show, image: image)
+            return PopularShowPoster(show: show, image: image)
         } else {
             apiClient.loadPoster(for: show, { [weak self] result in
                 switch result {
                 case .success(let poster):
                     self?.cache(poster, for: show.posterPath)
-                    let showPoster = ShowPoster(show: show, image: poster)
-                    handler(.successPoster(showPoster))
+                    handler(.successPoster(PopularShowPoster(show: show, image: poster)))
                 case .failure(let error):
-                    print(error)
+                    handler(.failed(error))
                 }
             })
             return nil
         }
     }
     
-    func sortShows(_ shows: [Show]) -> [Show] {
-        return [Show]()
+    func sort(shows: [PopularShow]) -> [PopularShow] {
+        return shows.sorted { $0.name < $1.name }
     }
 }

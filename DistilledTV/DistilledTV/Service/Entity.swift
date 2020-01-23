@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct Show: Codable {
+struct PopularShow: Codable {
     var posterPath: String
     var popularity: Double
     var id: Int
@@ -40,7 +40,7 @@ struct Show: Codable {
 struct PopularShows: Codable {
     
     let page: Int
-    let results: [Show]
+    let results: [PopularShow]
     let totalResults: Int
     let totalPages: Int
     
@@ -52,13 +52,7 @@ struct PopularShows: Codable {
     }
 }
 
-public struct ErrorResponse: Codable {
-    let status_code: Int
-    let status_message: String
-    let success: Bool
-}
-
-public struct ShowPoster: Codable {
-    let show: Show
+public struct PopularShowPoster: Codable {
+    let show: PopularShow
     let image: Data
 }

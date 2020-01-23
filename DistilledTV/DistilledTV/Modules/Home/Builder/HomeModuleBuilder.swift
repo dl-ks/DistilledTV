@@ -10,13 +10,11 @@ import Foundation
 import UIKit
 
 class HomeModuleBuilder {
-    
     static func build() -> UIViewController {
         let view = HomeViewController()
         let router = HomeDefaultRouter(view: view)
         let presenter = HomeDefaultPresenter(view: view, router: router)
         view.presenter = presenter
-        
         let navigationController = NavigationBuilder.build(root: view)
         return navigationController
     }

@@ -12,14 +12,15 @@ import UIKit
 protocol PopularShowsPresenter {
     func loadData()
     func loadNextPage()
-    func loadImage(for show: Show) -> UIImage?
+    func loadImage(for show: PopularShow) -> UIImage?
     func showActivity()
     func hideActivity()
+    func sort(_ shows: [PopularShow]?) -> [PopularShow]?
 }
 
 class PopularShowsDefaultPresenter {
     
-    private var shows: [Show]?
+    private var shows: [PopularShow]?
     private weak var view: PopularShowsView?
     private let interactor: PopularShowsInteractor
     private let router: PopularShowsRouter
@@ -39,21 +40,23 @@ extension PopularShowsDefaultPresenter: PopularShowsPresenter {
         loadNextPage()
     }
     
-    func loadImage(for show: Show) -> UIImage? {
+    func loadImage(for show: PopularShow) -> UIImage? {
         if let poster = interactor.loadPoster(for: show, then: interactorHandler()) {
             return UIImage(data: poster.image)
-        }
-        else {
+        } else {
             return UIImage(named: "")
         }
     }
     
     func loadNextPage() {
         let nextPage = lastPage + 1
-        guard nextPage < totalPages else {
-            return
-        }
+        guard nextPage < totalPages else { return }
         interactor.loadShows(page: nextPage, then: interactorHandler())
+    }
+    
+    func sort(_ shows: [PopularShow]?) -> [PopularShow]? {
+        guard let shows = shows else { return nil }
+        return interactor.sort(shows: shows)
     }
     
     func showActivity() {
@@ -66,11 +69,9 @@ extension PopularShowsDefaultPresenter: PopularShowsPresenter {
 }
 
 extension PopularShowsDefaultPresenter {
-    
     private func interactorHandler() -> LoadPopularShowsHandler {
         return { [weak self] result in
             guard let strongSelf = self else { return }
-            
             DispatchQueue.main.async {
                 switch result {
                 case .successPopularShows(let popularShows):
@@ -94,14 +95,14 @@ extension PopularShowsDefaultPresenter {
         lastPage = newShows.page
         totalPages = newShows.totalPages
         
-        let current = shows ?? [Show]()
+        let current = shows ?? [PopularShow]()
         let next = newShows.results
         shows = current + next
         
         view?.display(shows)
     }
     
-    private func handle(_ poster: ShowPoster?) {
+    private func handle(_ poster: PopularShowPoster?) {
         guard let poster = poster else { return }
         if let image = UIImage(data: poster.image) {
             view?.display(image, for: poster.show)

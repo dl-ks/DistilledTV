@@ -63,7 +63,7 @@ class PopularShowsTableViewCell: UITableViewCell {
         overviewLabel.bottom(to: contentView, offset: -10.0)
     }
     
-    public func configure(_ show: Show) {
+    public func configure(_ show: PopularShow) {
         nameLabel.text = show.name
         overviewLabel.text = show.overview
     }

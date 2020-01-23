@@ -15,6 +15,7 @@ protocol PopularShowsRouter {
 }
 
 class PopularShowsDefaultRouter {
+    
     let view: UIViewController & Loadable
     
     init(view: UIViewController & Loadable) {

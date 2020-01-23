@@ -135,7 +135,7 @@ class APIClient {
 
 protocol PopularShowsLoadable {
     func loadPopularShows(page: Int, _ result: @escaping (Result<PopularShows, APIError>) -> Void)
-    func loadPoster(for show: Show, _ result: @escaping (Result<Data, APIError>) -> Void)
+    func loadPoster(for show: PopularShow, _ result: @escaping (Result<Data, APIError>) -> Void)
 }
 
 extension APIClient: PopularShowsLoadable {
@@ -144,7 +144,7 @@ extension APIClient: PopularShowsLoadable {
         load(request: request, completion: result)
     }
     
-    func loadPoster(for show: Show, _ result: @escaping (Result<Data, APIError>) -> Void) {
+    func loadPoster(for show: PopularShow, _ result: @escaping (Result<Data, APIError>) -> Void) {
         let request = APIRouter.poster(apiKey: Utility.movieDB.apiKeyV3.rawValue, fileName: show.posterPath).urlRequest()
         loadImage(request: request, completion: result)
     }

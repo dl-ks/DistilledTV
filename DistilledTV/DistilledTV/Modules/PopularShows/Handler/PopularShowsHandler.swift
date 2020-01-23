@@ -14,6 +14,6 @@ enum LoadPopularShowsResult {
     case startActivity
     case stopActivity
     case successPopularShows(PopularShows)
-    case successPoster(ShowPoster)
+    case successPoster(PopularShowPoster)
     case failed(APIError)
 }
