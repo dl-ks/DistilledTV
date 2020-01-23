@@ -20,7 +20,6 @@
 		4C3108C823D5D39100898BCF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108C723D5D39100898BCF /* SceneDelegate.swift */; };
 		4C3108CF23D5D39200898BCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C3108CE23D5D39200898BCF /* Assets.xcassets */; };
 		4C3108D223D5D39200898BCF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C3108D023D5D39200898BCF /* LaunchScreen.storyboard */; };
-		4C3108DD23D5D39200898BCF /* DistilledTVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108DC23D5D39200898BCF /* DistilledTVTests.swift */; };
 		4C3108E923D5DC1F00898BCF /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108E823D5DC1F00898BCF /* APIRouter.swift */; };
 		4C3108EB23D5DC9D00898BCF /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108EA23D5DC9D00898BCF /* Utility.swift */; };
 		4C3108F023D5E9E800898BCF /* PopularShowsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3108EF23D5E9E800898BCF /* PopularShowsInteractor.swift */; };
@@ -61,7 +60,6 @@
 		4C3108D123D5D39200898BCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C3108D323D5D39200898BCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C3108D823D5D39200898BCF /* DistilledTVTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DistilledTVTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C3108DC23D5D39200898BCF /* DistilledTVTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistilledTVTests.swift; sourceTree = "<group>"; };
 		4C3108DE23D5D39200898BCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C3108E823D5DC1F00898BCF /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		4C3108EA23D5DC9D00898BCF /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
@@ -178,7 +176,6 @@
 		4C3108DB23D5D39200898BCF /* DistilledTVTests */ = {
 			isa = PBXGroup;
 			children = (
-				4C3108DC23D5D39200898BCF /* DistilledTVTests.swift */,
 				4C3108DE23D5D39200898BCF /* Info.plist */,
 				4C1B525623DA48FE00B2BF73 /* PopularShowsPresenterTests.swift */,
 			);
@@ -489,7 +486,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C1B525723DA48FE00B2BF73 /* PopularShowsPresenterTests.swift in Sources */,
-				4C3108DD23D5D39200898BCF /* DistilledTVTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

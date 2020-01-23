@@ -20,12 +20,12 @@ protocol PopularShowsPresenter {
 
 class PopularShowsDefaultPresenter {
     
-    private var shows: [PopularShow]?
-    private weak var view: PopularShowsView?
-    private let interactor: PopularShowsInteractor
-    private let router: PopularShowsRouter
-    private var lastPage = 0
-    private var totalPages = Int.max
+    var shows: [PopularShow]?
+    weak var view: PopularShowsView?
+    let interactor: PopularShowsInteractor
+    let router: PopularShowsRouter
+    var lastPage = 0
+    var totalPages = Int.max
 
     init(view: PopularShowsView, interactor: PopularShowsInteractor, router: PopularShowsRouter) {
         self.view = view
@@ -69,7 +69,7 @@ extension PopularShowsDefaultPresenter: PopularShowsPresenter {
 }
 
 extension PopularShowsDefaultPresenter {
-    private func interactorHandler() -> LoadPopularShowsHandler {
+    func interactorHandler() -> LoadPopularShowsHandler {
         return { [weak self] result in
             guard let strongSelf = self else { return }
             DispatchQueue.main.async {
@@ -89,7 +89,7 @@ extension PopularShowsDefaultPresenter {
         }
     }
     
-    private func handle(_ newShows: PopularShows?) {
+    func handle(_ newShows: PopularShows?) {
         guard let newShows = newShows else { return }
         
         lastPage = newShows.page
@@ -102,14 +102,14 @@ extension PopularShowsDefaultPresenter {
         view?.display(shows)
     }
     
-    private func handle(_ poster: PopularShowPoster?) {
+    func handle(_ poster: PopularShowPoster?) {
         guard let poster = poster else { return }
         if let image = UIImage(data: poster.image) {
             view?.display(image, for: poster.show)
         }
     }
     
-    private func handle(_ error: APIError) {
+    func handle(_ error: APIError) {
         switch error {
         case .apiError, .decodeError, .invalidEndpoint, .invalidResponse, .noData:
             view?.display("default_error_message".localized)

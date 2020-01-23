@@ -17,7 +17,7 @@ struct PopularShow: Codable {
     var originCountry: [String]
     var name: String
     
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         posterPath = try? container.decodeIfPresent(String.self, forKey: .posterPath) ?? ""
         popularity = try container.decode(Double.self, forKey: .popularity)
@@ -52,7 +52,7 @@ struct PopularShows: Codable {
     }
 }
 
-public struct PopularShowPoster: Codable {
+struct PopularShowPoster: Codable {
     let show: PopularShow
     let image: Data
 }

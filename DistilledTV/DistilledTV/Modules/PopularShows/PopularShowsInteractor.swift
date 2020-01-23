@@ -23,7 +23,7 @@ class PopularShowsDefaultInteractor {
         self.apiClient = apiClient
     }
     
-    private func cache(_ image: Data?, for path: String) {
+    func cache(_ image: Data?, for path: String) {
         guard let image = image else { return }
         imageCache[path] = image
     }
@@ -31,7 +31,7 @@ class PopularShowsDefaultInteractor {
 
 extension PopularShowsDefaultInteractor: PopularShowsInteractor {
     
-    public func loadShows(page: Int, then handler: @escaping LoadPopularShowsHandler) {
+    func loadShows(page: Int, then handler: @escaping LoadPopularShowsHandler) {
         handler(.startActivity)
         apiClient.loadPopularShows(page: page, { result in
             handler(.stopActivity)
@@ -44,7 +44,7 @@ extension PopularShowsDefaultInteractor: PopularShowsInteractor {
         })
     }
     
-    public func loadPoster(for show: PopularShow, then handler: @escaping LoadPopularShowsHandler) -> PopularShowPoster? {
+    func loadPoster(for show: PopularShow, then handler: @escaping LoadPopularShowsHandler) -> PopularShowPoster? {
         if let posterPath = show.posterPath, let image = imageCache[posterPath] {
             return PopularShowPoster(show: show, image: image)
         } else {

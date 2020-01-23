@@ -10,21 +10,21 @@ import UIKit
 
 class PopularShowsTableViewCell: UITableViewCell {
     
-    private var nameLabel: UILabel = {
+    var nameLabel: UILabel = {
         let lbl = UILabel()
         lbl.numberOfLines = 0
         lbl.font = UIFont(name: "Avenir", size: 24.0)
         return lbl
     }()
     
-    private var overviewLabel: UILabel = {
+    var overviewLabel: UILabel = {
         let lbl = UILabel()
         lbl.numberOfLines = 0
         lbl.font = UIFont(name: "Avenir", size: 16.0)
         return lbl
     }()
     
-    public var posterImageView: UIImageView = {
+    var posterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -39,7 +39,7 @@ class PopularShowsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setup() {
+    func setup() {
         selectionStyle = .none
         contentView.addSubview(posterImageView)
         contentView.addSubview(nameLabel)
@@ -47,7 +47,7 @@ class PopularShowsTableViewCell: UITableViewCell {
         setupConstraints()
     }
 
-    private func setupConstraints() {
+    func setupConstraints() {
         posterImageView.leading(to: contentView, offset: 16.0)
         posterImageView.top(to: contentView, offset: 10.0)
         posterImageView.height(80.0)
@@ -63,11 +63,9 @@ class PopularShowsTableViewCell: UITableViewCell {
         overviewLabel.bottom(to: contentView, offset: -10.0)
     }
     
-    public func configure(_ show: PopularShow) {
+    func configure(_ show: PopularShow) {
         nameLabel.text = show.name
         overviewLabel.text = show.overview
     }
 }
-
-
 

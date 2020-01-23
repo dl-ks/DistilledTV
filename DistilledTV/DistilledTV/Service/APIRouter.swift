@@ -33,7 +33,7 @@ enum APIRouter {
     case popularTvShows(apiKey: String, page: Int)
     case poster(apiKey: String, fileName: String)
     
-    private var method: HTTPMethod {
+    var method: HTTPMethod {
         switch self {
         case .popularTvShows,
              .poster:
@@ -41,7 +41,7 @@ enum APIRouter {
         }
     }
     
-    private var path: String {
+    var path: String {
         switch self {
         case .popularTvShows(let apiKey, let page):
             return "/tv/popular?api_key=\(apiKey)&page=\(page)"

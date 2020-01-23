@@ -24,7 +24,7 @@ class PopularShowsViewController: UIViewController, Loadable {
     var presenter: PopularShowsPresenter? 
     var shows: [PopularShow]?
     
-    private var tableView: UITableView = {
+    var tableView: UITableView = {
         let tbl = UITableView()
         tbl.register(PopularShowsTableViewCell.self, forCellReuseIdentifier: "PopularShowsTableViewCell")
         tbl.estimatedRowHeight = 80.0
@@ -38,7 +38,7 @@ class PopularShowsViewController: UIViewController, Loadable {
         presenter?.loadData()
     }
     
-    private func setup() {
+    func setup() {
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)

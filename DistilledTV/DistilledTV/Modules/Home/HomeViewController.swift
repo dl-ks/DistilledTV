@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
     
     var presenter: HomePresenter?
     
-    private var getShowsButton: UIButton = {
+    var getShowsButton: UIButton = {
         let btn = UIButton(type: .custom)
         btn.backgroundColor = UIColor(named: "customGreen")
         btn.setTitleColor(UIColor(named: "customGrey"), for: .normal)
@@ -37,7 +37,7 @@ class HomeViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
     }
     
-    private func setup() {
+    func setup() {
         getShowsButton.addTarget(self,
                                  action: #selector(presentPopularShowsViewController),
                                  for: .touchUpInside)
@@ -45,7 +45,7 @@ class HomeViewController: UIViewController {
         view.addSubview(getShowsButton)
     }
     
-    private func setupConstraints() {
+    func setupConstraints() {
         getShowsButton.center(in: view)
         getShowsButton.width(300.0)
         getShowsButton.height(50.0)
