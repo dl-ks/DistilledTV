@@ -1,6 +1,6 @@
 # DistilledTV
 Distilled tech test
 
-cd DistilledTV
-run 'pod install'
-open workspace. 
+cd DistilledTV<br/> 
+run 'pod install'<br/>
+open workspace.   
