@@ -12,6 +12,7 @@ protocol PopularShowsInteractor {
     func loadShows(page: Int, then handler: @escaping LoadPopularShowsHandler)
     func loadPoster(for show: PopularShow, then handler: @escaping LoadPopularShowsHandler) -> PopularShowPoster?
     func sort(shows: [PopularShow]) -> [PopularShow]
+    func cache(image: Data?, for path: String)
 }
 
 class PopularShowsDefaultInteractor {
@@ -21,11 +22,6 @@ class PopularShowsDefaultInteractor {
     
     init(apiClient: PopularShowsLoadable) {
         self.apiClient = apiClient
-    }
-    
-    func cache(_ image: Data?, for path: String) {
-        guard let image = image else { return }
-        imageCache[path] = image
     }
 }
 
@@ -51,7 +47,7 @@ extension PopularShowsDefaultInteractor: PopularShowsInteractor {
             apiClient.loadPoster(for: show, { [weak self] result in
                 switch result {
                 case .success(let poster):
-                    self?.cache(poster, for: show.posterPath ?? "")
+                    self?.cache(image: poster, for: show.posterPath ?? "")
                     handler(.successPoster(PopularShowPoster(show: show, image: poster)))
                 case .failure(let error):
                     handler(.failed(error))
@@ -63,5 +59,10 @@ extension PopularShowsDefaultInteractor: PopularShowsInteractor {
     
     func sort(shows: [PopularShow]) -> [PopularShow] {
         return shows.sorted { $0.name < $1.name }
+    }
+    
+    func cache(image: Data?, for path: String) {
+        guard let image = image else { return }
+        imageCache[path] = image
     }
 }

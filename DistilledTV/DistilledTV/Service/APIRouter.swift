@@ -30,12 +30,12 @@ enum APIError: Error {
 
 enum APIRouter {
     
-    case popularTvShows(apiKey: String, page: Int)
+    case popularShows(apiKey: String, page: Int)
     case poster(apiKey: String, fileName: String)
     
     var method: HTTPMethod {
         switch self {
-        case .popularTvShows,
+        case .popularShows,
              .poster:
             return .get
         }
@@ -43,7 +43,7 @@ enum APIRouter {
     
     var path: String {
         switch self {
-        case .popularTvShows(let apiKey, let page):
+        case .popularShows(let apiKey, let page):
             return "/tv/popular?api_key=\(apiKey)&page=\(page)"
         case .poster(let apiKey, let fileName):
             return "\(fileName)?api_key=\(apiKey)"
@@ -55,7 +55,7 @@ extension APIRouter: RequestConvertible {
     func urlRequest() -> URLRequest {
         
         switch self {
-        case .popularTvShows:
+        case .popularShows:
             let url = Utility.movieDB.baseUrl.rawValue.appending(path)
             var urlRequest = URLRequest(url: URL(string: url)!)
             urlRequest.httpMethod = method.rawValue
@@ -140,7 +140,7 @@ protocol PopularShowsLoadable {
 
 extension APIClient: PopularShowsLoadable {
     func loadPopularShows(page: Int, _ result: @escaping (Result<PopularShows, APIError>) -> Void) {
-        let request = APIRouter.popularTvShows(apiKey: Utility.movieDB.apiKeyV3.rawValue, page: page).urlRequest()
+        let request = APIRouter.popularShows(apiKey: Utility.movieDB.apiKeyV3.rawValue, page: page).urlRequest()
         load(request: request, completion: result)
     }
     

@@ -54,7 +54,7 @@ class PopularShowsTableViewCell: UITableViewCell {
         posterImageView.width(80.0)
         
         nameLabel.leadingToTrailing(of: posterImageView, offset: 10.0)
-        nameLabel.trailing(to: contentView, offset: 10.0)
+        nameLabel.trailing(to: contentView, offset: -16.0)
         nameLabel.centerY(to: posterImageView)
         
         overviewLabel.leading(to: contentView, offset: 16.0)
