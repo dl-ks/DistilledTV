@@ -52,7 +52,7 @@ struct PopularShows: Codable {
     }
 }
 
-struct PopularShowPoster: Codable {
+struct PopularShowPoster {
     let show: PopularShow
-    let image: Data
+    let image: UIImage
 }

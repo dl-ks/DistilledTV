@@ -11,9 +11,7 @@ import Foundation
 typealias LoadPopularShowsHandler = (LoadPopularShowsResult) -> ()
 
 enum LoadPopularShowsResult {
-    case startActivity
-    case stopActivity
     case successPopularShows(PopularShows)
     case successPoster(PopularShowPoster)
-    case failed(APIError)
+    case failed(Error)
 }

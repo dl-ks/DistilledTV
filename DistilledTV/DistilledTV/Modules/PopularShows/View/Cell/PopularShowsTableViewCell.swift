@@ -25,9 +25,9 @@ class PopularShowsTableViewCell: UITableViewCell {
     }()
     
     var posterImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
+        let img = UIImageView()
+        img.contentMode = .scaleAspectFit
+        return img
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

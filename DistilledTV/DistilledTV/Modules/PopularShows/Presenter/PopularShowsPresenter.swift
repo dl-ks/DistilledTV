@@ -10,15 +10,16 @@ import Foundation
 import UIKit
 
 protocol PopularShowsPresenter {
-    func loadData()
-    func loadNextPage()
+    func load()
+    func paginate()
     func loadImage(for show: PopularShow) -> UIImage?
-    func showActivity()
-    func hideActivity()
     func sort(_ shows: [PopularShow]?) -> [PopularShow]?
+    func handle(_ newShows: PopularShows?)
+    func handle(_ poster: PopularShowPoster?)
+    func handle(_ error: Error)
 }
 
-class PopularShowsDefaultPresenter {
+final class PopularShowsDefaultPresenter {
     
     var shows: [PopularShow]?
     weak var view: PopularShowsView?
@@ -35,20 +36,21 @@ class PopularShowsDefaultPresenter {
 }
 
 extension PopularShowsDefaultPresenter: PopularShowsPresenter {
-    func loadData() {
+    func load() {
         lastPage = 0
-        loadNextPage()
+        paginate()
     }
     
     func loadImage(for show: PopularShow) -> UIImage? {
         if let poster = interactor.loadPoster(for: show, then: interactorHandler()) {
-            return UIImage(data: poster.image)
+            return poster.image
         } else {
             return UIImage(named: "")
         }
     }
     
-    func loadNextPage() {
+    func paginate() {
+        router.showActivity()
         let nextPage = lastPage + 1
         guard nextPage < totalPages else { return }
         interactor.loadShows(page: nextPage, then: interactorHandler())
@@ -57,14 +59,6 @@ extension PopularShowsDefaultPresenter: PopularShowsPresenter {
     func sort(_ shows: [PopularShow]?) -> [PopularShow]? {
         guard let shows = shows else { return nil }
         return interactor.sort(shows: shows)
-    }
-    
-    func showActivity() {
-        router.showActivity()
-    }
-    
-    func hideActivity() {
-        router.hideActivity()
     }
 }
 
@@ -80,10 +74,6 @@ extension PopularShowsDefaultPresenter {
                     strongSelf.handle(poster)
                 case .failed(let error):
                     strongSelf.handle(error)
-                case .startActivity:
-                    strongSelf.showActivity()
-                case .stopActivity:
-                    strongSelf.hideActivity()
                 }
             }
         }
@@ -100,19 +90,15 @@ extension PopularShowsDefaultPresenter {
         shows = current + next
         
         view?.display(shows)
+        router.hideActivity()
     }
     
     func handle(_ poster: PopularShowPoster?) {
         guard let poster = poster else { return }
-        if let image = UIImage(data: poster.image) {
-            view?.display(image, for: poster.show)
-        }
+        view?.display(poster.image, for: poster.show)
     }
     
-    func handle(_ error: APIError) {
-        switch error {
-        case .apiError, .decodeError, .invalidEndpoint, .invalidResponse, .noData:
-            view?.display("default_error_message".localized)
-        }
+    func handle(_ error: Error) {
+        view?.display("")
     }
 }

@@ -9,12 +9,14 @@
 import Foundation
 import UIKit
 
+typealias ErrorMessage = String
+
 protocol PopularShowsRouter {
     func showActivity()
     func hideActivity()
 }
 
-class PopularShowsDefaultRouter {
+final class PopularShowsDefaultRouter {
     
     let view: UIViewController & Loadable
     
@@ -24,6 +26,7 @@ class PopularShowsDefaultRouter {
 }
 
 extension PopularShowsDefaultRouter: PopularShowsRouter {
+    
     func showActivity() {
         view.showActivity()
     }

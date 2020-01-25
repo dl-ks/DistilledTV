@@ -46,8 +46,9 @@ class HomeViewController: UIViewController {
     }
     
     func setupConstraints() {
-        getShowsButton.center(in: view)
-        getShowsButton.width(300.0)
+        getShowsButton.centerY(to: view)
+        getShowsButton.trailingToSuperview(offset: 40.0)
+        getShowsButton.leadingToSuperview(offset: 40.0)
         getShowsButton.height(50.0)
     }
 }

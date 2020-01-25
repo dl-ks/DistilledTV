@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol Loadable {
+protocol Loadable: class {
     var activityIndicator: UIActivityIndicatorView { get }
     func showActivity()
     func hideActivity()

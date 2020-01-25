@@ -7,33 +7,31 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PopularShowsInteractor {
     func loadShows(page: Int, then handler: @escaping LoadPopularShowsHandler)
     func loadPoster(for show: PopularShow, then handler: @escaping LoadPopularShowsHandler) -> PopularShowPoster?
     func sort(shows: [PopularShow]) -> [PopularShow]
-    func cache(image: Data?, for path: String)
+    func cache(image: UIImage?, for path: String)
 }
 
-class PopularShowsDefaultInteractor {
+final class PopularShowsDefaultInteractor {
+    var imageCache = [String: UIImage]()
+    var network: PopularShowsLoadable
     
-    var imageCache = [String: Data]()
-    var apiClient: PopularShowsLoadable
-    
-    init(apiClient: PopularShowsLoadable) {
-        self.apiClient = apiClient
+    init(network: PopularShowsLoadable) {
+        self.network = network
     }
 }
 
 extension PopularShowsDefaultInteractor: PopularShowsInteractor {
     
     func loadShows(page: Int, then handler: @escaping LoadPopularShowsHandler) {
-        handler(.startActivity)
-        apiClient.loadPopularShows(page: page, { result in
-            handler(.stopActivity)
+        network.loadPopularShows(page: page, responseHandler: { result in
             switch result {
-            case .success(let popular):
-                handler(.successPopularShows(popular))
+            case .success(let popularShows):
+                handler(.successPopularShows(popularShows))
             case .failure(let error):
                 handler(.failed(error))
             }
@@ -41,14 +39,19 @@ extension PopularShowsDefaultInteractor: PopularShowsInteractor {
     }
     
     func loadPoster(for show: PopularShow, then handler: @escaping LoadPopularShowsHandler) -> PopularShowPoster? {
-        if let posterPath = show.posterPath, let image = imageCache[posterPath] {
+        
+        guard let posterPath = show.posterPath else {
+            return nil
+        }
+        
+        if let image = imageCache[posterPath] {
             return PopularShowPoster(show: show, image: image)
-        } else {
-            apiClient.loadPoster(for: show, { [weak self] result in
+        }
+        else {
+            network.loadPoster(for: show, responseHandler: { result  in
                 switch result {
-                case .success(let poster):
-                    self?.cache(image: poster, for: show.posterPath ?? "")
-                    handler(.successPoster(PopularShowPoster(show: show, image: poster)))
+                case .success(let image):
+                    handler(.successPoster(PopularShowPoster(show: show, image: image)))
                 case .failure(let error):
                     handler(.failed(error))
                 }
@@ -61,8 +64,9 @@ extension PopularShowsDefaultInteractor: PopularShowsInteractor {
         return shows.sorted { $0.name < $1.name }
     }
     
-    func cache(image: Data?, for path: String) {
+    func cache(image: UIImage?, for path: String) {
         guard let image = image else { return }
         imageCache[path] = image
     }
 }
+

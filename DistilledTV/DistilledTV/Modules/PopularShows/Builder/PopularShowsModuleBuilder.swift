@@ -12,7 +12,7 @@ import UIKit
 class PopularShowsModuleBuilder {
     static func build() -> UIViewController {
         let view = PopularShowsViewController()
-        let interactor = PopularShowsDefaultInteractor(apiClient: APIClient.shared)
+        let interactor = PopularShowsDefaultInteractor(network: PopularShowsClient())
         let router = PopularShowsDefaultRouter(view: view)
         let presenter = PopularShowsDefaultPresenter(view: view, interactor: interactor, router: router)
         view.presenter = presenter

@@ -11,12 +11,14 @@ import TinyConstraints
 
 protocol PopularShowsView: class {
     func display(_ shows: [PopularShow]?)
-    func display(_ error: String)
+    func display(_ error: ErrorMessage)
     func display(_ image: UIImage, for show: PopularShow)
+    func displayActivity()
+    func hideActivity()
     func sort()
 }
 
-class PopularShowsViewController: UIViewController, Loadable {
+final class PopularShowsViewController: UIViewController, Loadable {
 
     var activityIndicator = UIActivityIndicatorView()
     var spinner = UIActivityIndicatorView(style: .large)
@@ -35,7 +37,7 @@ class PopularShowsViewController: UIViewController, Loadable {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        presenter?.loadData()
+        presenter?.load()
     }
     
     func setup() {
@@ -55,6 +57,10 @@ class PopularShowsViewController: UIViewController, Loadable {
 }
 
 extension PopularShowsViewController: PopularShowsView {
+    func displayActivity() {
+        showActivity()
+    }
+    
     func display(_ shows: [PopularShow]?) {
         self.shows = shows
         tableView.reloadData()
@@ -102,7 +108,7 @@ extension PopularShowsViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let shows = shows else { return }
         if indexPath.row == shows.count - 1 {
-            presenter?.loadNextPage()
+            presenter?.paginate()
         }
     }
 }
